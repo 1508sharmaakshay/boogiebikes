@@ -163,8 +163,7 @@
     'displayType': displayType,
     'magnify': magnify
   })
-})(window.GemQuery || jQuery);
-        jQuery(function() {
+})(window.GemQuery || jQuery);jQuery(function() {
   var $module = jQuery('#m-1643079287300').children('.module');
   $module.gfV3ProductImageList({
       onImageClicked: function(imageUrl, imageZoomUrl) {}
@@ -233,8 +232,7 @@
           }); 
           break;
   }
-}); 
-    
+});
     
     
     
@@ -745,64 +743,6 @@
 })( window.GemQuery || jQuery );
     
   
-    
-    
-    
-    
-(function( jQuery ){
-  var $module = jQuery('#m-1652195761299').children('.module');
-  $module.gfV1Popup();
-
-  var mode = jQuery('.gryffeditor').hasClass('editing') ? 'dev' : 'production';
-  if(mode == 'dev') {
-    var moduleId = "1652195761299";
-    var moduleIdSlug = moduleId.toString().replace(/-/g, '');
-    if (moduleIdSlug == "1652195761299") {
-      window.getPopup1652195761299 = function() {
-        return $module.data('gfv1popup');
-      }
-    }
-  }
-})( window.GemQuery || jQuery );
-    
-    
-    
-    
-    
-    
-    
-    
-(function( jQuery ){
-  var $module = jQuery('#m-1652196233897').children('.module');
-  $module.gfV3Product();
-})( window.GemQuery || jQuery );
-    
-    
-(function( jQuery ){
-  var $module = jQuery('#m-1652196695120').children('.module');
-  var style = $module.attr('data-style');
-  var updatePrice = $module.attr('data-updateprice');
-
-  $module.gfV3ProductQuantity({
-    'style': style,
-    'updatePrice': updatePrice
-  });
-})( window.GemQuery || jQuery );
-    
-(function( jQuery ){
-  var $module = jQuery('#m-1652196233897-3').children('.module');
-  $module.gfV3ProductCartButton({ onItemAdded: function(data) {}});
-})( window.GemQuery || jQuery );
-    
-(function(jQuery) {
-  var $module = jQuery('#m-1652196245655').children('.module');
-  var swatchText = $module.attr('data-swatch-text') != undefined ? $module.attr('data-swatch-text') : '1';
-  $module.gfV3ProductSwatches({
-    swatchText: swatchText,
-    onSwatchSelected: function(variant, $swatch) {}
-  });
-})(window.GemQuery || jQuery);
-    
     
     
     

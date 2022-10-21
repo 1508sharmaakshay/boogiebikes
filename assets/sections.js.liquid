@@ -2452,6 +2452,29 @@ $(document).ready(function(){
       });
       e.preventDefault();
 	});
-    
-  
 
+
+//CustomCode
+window.addEventListener("load", function() {
+  if (screen.width <= 767 && screen.width > 550) {
+    document.getElementById('c-1643256288489').style.setProperty('width', '90vw', 'important');
+  } else if (screen.width <= 550 && screen.width > 400) {
+    document.getElementById('c-1643256288489').style.setProperty('width', '95vw', 'important');
+  } else if (screen.width <= 400) {
+    document.getElementById('c-1643256288489').style.setProperty('width', '98vw', 'important');
+  } else {
+    document.getElementById('c-1643256288489').style.setProperty('width', '65.5%', 'important');
+  }
+
+  window.addEventListener("resize", function() {
+    if (screen.width <= 767 && screen.width > 550) {
+      document.getElementById('c-1643256288489').style.setProperty('width', '90vw', 'important');
+    } else if (screen.width <= 550) {
+      document.getElementById('c-1643256288489').style.setProperty('width', '95vw', 'important');
+    } else if (screen.width <= 400) {
+      document.getElementById('c-1643256288489').style.setProperty('width', '98vw', 'important');
+    } else {
+      document.getElementById('c-1643256288489').style.setProperty('width', '65.5%', 'important');
+    }
+  });
+});

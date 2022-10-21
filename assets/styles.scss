@@ -2516,9 +2516,9 @@ select.currencies {
   padding-bottom: 0;
   cursor: pointer;
   @if (lightness(#ffffff) > 50) {
-    background-image: url(//cdn.shopify.com/s/files/1/0446/1402/5372/t/54/assets/select.png?v=163443801653745187891654500191); // Lighter background
+    background-image: url(//cdn.shopify.com/s/files/1/0446/1402/5372/t/60/assets/select.png?v=163443801653745187891665599580); // Lighter background
   } @else {
-    background-image: url(//cdn.shopify.com/s/files/1/0446/1402/5372/t/54/assets/select_light.png?v=153136132513795776861654500192); // Darker background
+    background-image: url(//cdn.shopify.com/s/files/1/0446/1402/5372/t/60/assets/select_light.png?v=153136132513795776861665599581); // Darker background
   }
   @include respond-to('medium-down'){
     font-size: 16px;
@@ -4709,7 +4709,7 @@ select::-ms-expand {
 }
 
 select {
-  background: #fff url(//cdn.shopify.com/s/files/1/0446/1402/5372/t/54/assets/select.png?v=163443801653745187891654500191) no-repeat 96% 50%;
+  background: #fff url(//cdn.shopify.com/s/files/1/0446/1402/5372/t/60/assets/select.png?v=163443801653745187891665599580) no-repeat 96% 50%;
   background-size: 18px 12px;
   
     padding: 8px 14px 8px;
@@ -7204,7 +7204,7 @@ a.tag {
   height: 0;
   width: 0;
   transition: all 0.3s linear;
-  background: url('//cdn.shopify.com/s/files/1/0446/1402/5372/t/54/assets/loader.gif') center center no-repeat;
+  background: url('//cdn.shopify.com/s/files/1/0446/1402/5372/t/60/assets/loader.gif') center center no-repeat;
   background-size: 32px 32px;
   margin: 0 auto;
 }
@@ -9846,11 +9846,11 @@ html.remodal-is-locked {
 
 @font-face {
   font-family: 'turbo';
-  src: url('//cdn.shopify.com/s/files/1/0446/1402/5372/t/54/assets/turbo.eot?v=48734892740725754481654500194');
-  src: url('//cdn.shopify.com/s/files/1/0446/1402/5372/t/54/assets/turbo.eot?v=48734892740725754481654500194') format('embedded-opentype'),
-       url('//cdn.shopify.com/s/files/1/0446/1402/5372/t/54/assets/turbo.woff?v=150966577236684244781654500196') format('woff'),
-       url('//cdn.shopify.com/s/files/1/0446/1402/5372/t/54/assets/turbo.ttf?v=77481909974496710951654500195') format('truetype'),
-       url('//cdn.shopify.com/s/files/1/0446/1402/5372/t/54/assets/turbo.svg?v=173366358466109711321654500195') format('svg');
+  src: url('//cdn.shopify.com/s/files/1/0446/1402/5372/t/60/assets/turbo.eot?v=48734892740725754481665599584');
+  src: url('//cdn.shopify.com/s/files/1/0446/1402/5372/t/60/assets/turbo.eot?v=48734892740725754481665599584') format('embedded-opentype'),
+       url('//cdn.shopify.com/s/files/1/0446/1402/5372/t/60/assets/turbo.woff?v=150966577236684244781665599585') format('woff'),
+       url('//cdn.shopify.com/s/files/1/0446/1402/5372/t/60/assets/turbo.ttf?v=77481909974496710951665599585') format('truetype'),
+       url('//cdn.shopify.com/s/files/1/0446/1402/5372/t/60/assets/turbo.svg?v=173366358466109711321665599584') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -12445,7 +12445,7 @@ h1, h2, #nav li a, div.title a, .headline, .button { font-family: 'Cera_Pro_Bold
 
  @font-face {
       font-family: 'Cera_Basic';
-   	  src: url(' //cdn.shopify.com/s/files/1/0446/1402/5372/t/54/assets/cera-basic.otf?v=97679315379648155281654500138 ');
+   	  src: url(' //cdn.shopify.com/s/files/1/0446/1402/5372/t/60/assets/cera-basic.otf?v=97679315379648155281665599500 ');
       font-weight: normal;
       font-style: normal; }
 
@@ -14613,5 +14613,4 @@ body.android {
 /*judge.me stars*/
 .jdgm-star { font-family: 'JudgemeStar' !important;}
 .judgeme-star { font-family: 'JudgemeStar' !important; }
-
 

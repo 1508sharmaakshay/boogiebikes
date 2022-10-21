@@ -1,5 +1,5 @@
 //document ready
-$(function() {
+setTimeout(function() {
   utils.enableDisclosure();
   var oldFlickityCreate = window.Flickity.prototype._create;
 
