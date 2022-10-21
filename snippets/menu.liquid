@@ -1,0 +1,11 @@
+{% for link in linklists[linklist].links %}
+  <li>
+    <a href="{{ link.url }}" class="custom_down_arrow_wrapper {% if link.active %}active{% endif %} {% if link.url == '#' %}url-deadlink{% endif %} {% if linklists[link.handle] != empty %} dropdown_link{% else %} top_link {% endif %}" data-dropdown-rel="{{ link.handle }}">
+      <span style="font-family: Dosis !important; font-weight: bold; font-size: 20px; color: #000;">{{ link.title }}</span>
+      
+      {% if link.title == "Store" or link.title == "Deals"  %}
+        <img loading="lazy" class="custom_down_arrow_icon" src="https://cdn.shopify.com/s/files/1/0446/1402/5372/files/free-arrow-down-icon-3101-thumb.png?v=1663842146">
+      {% endif %}
+    </a>
+  </li>
+{% endfor %}

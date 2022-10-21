@@ -1,0 +1,266 @@
+{% comment %}
+** Testimonial - homepage partial **
+- Draggable section
+- Uses blocks
+{% endcomment %}
+
+<style> 
+  #testimonial-{{section.id}} .testimonial-block.gallery-cell.use-mobile-color {
+  	background-color: transparent;
+  }
+  div#shopify-section-product-top-reviews{
+  	padding-top: 30px;
+  }
+  #testimonial-{{section.id}} .headline p{
+  	font-family: "BrandonText-Bold"!important;
+  }
+  
+  #testimonial-{{section.id}} .headline p, #testimonial-{{section.id}} .subtitle {
+  	color: #ffff;
+    text-shadow: none;
+    display: flex;
+    align-items: center;    
+  }
+  
+  #testimonial-{{section.id}} .subtitle p  {
+  	font-family: "BrandonText-Regular"!important;
+  }
+  
+  #testimonial-{{section.id}} .subtitle span{
+  	color:#5F9B64;
+    font-family: "BrandonText-Regular"!important;
+  }
+  
+  #testimonial-{{section.id}}  .flickity-page-dots {
+  	bottom: 0em;
+  }
+  
+  #testimonial-{{section.id}} .flickity-page-dots .dot {
+   width:10px;height:10px;margin:0 8px;background:#333;border-radius:50%;opacity:.25;
+  }
+   
+  #testimonial-{{section.id}} .flickity-page-dots .dot.is-selected{
+    opacity:1
+  }
+  
+  #testimonial-{{section.id}} .gallery-cell {
+  	background-color: initial;
+  }
+  #testimonial-{{section.id}} .caption .title {
+  	font-weight: 600;
+  }
+  
+  #testimonial-{{section.id}} .gallery-cell .image-element__wrap {
+  	max-width: 90px;
+    flex: 1;
+    margin: 0px;    
+    margin-right: 20px;
+  }
+  #testimonial-{{section.id}} .gallery-cell .subtitle .image-element__wrap {
+  	max-width: 20px;
+    height: auto;
+    flex: 1;
+    margin-right: 5px;
+  }
+  #testimonial-{{section.id}} .gallery-cell .subtitle .customer-info{
+  	flex: 4;
+  }
+  #testimonial-{{section.id}} .set-static .caption {
+  	padding: 20px;
+  }
+  #testimonial-{{section.id}} .caption-content {
+    display: flex;
+    max-width: 100%;
+    font-size: 16px;
+  }
+  
+  #testimonial-{{section.id}} .whole.gallery-cell {
+     width: 100%;
+     margin: auto;
+   }
+  #testimonial-{{section.id}} .whole.gallery-cell .testimonial_content {
+  	flex:5;
+  }
+  #testimonial-{{section.id}} .caption-content.testimonial-text {
+    text-align: left;
+  	width: 95%;
+    margin: auto;
+    align-items: center;
+  }
+   .custom:after {
+        content: 'flickity';
+        display: none;
+    }
+  div#testimonial-product-top-reviews {
+  	max-width: 960px;
+    margin: auto;
+  }
+  
+  #shopify-section-{{section.id}} {
+    background-color: {{ section.settings.background_color }};
+  }
+  
+  @media screen and ( min-width: 1300px ) {
+    #testimonial-{{section.id}} .flickity-button{
+      display: none;
+    }
+    #testimonial-{{section.id}} .caption-content.testimonial-text {
+    	width: 100%;
+    }
+  }
+ 
+  @media screen and ( max-width: 480px ) {
+    #testimonial-{{section.id}} .caption-content.testimonial-text .subtitle {
+     font-size: 12px;
+    }
+    
+    #testimonial-{{section.id}} .gallery-cell .image-element__wrap { 
+    margin-right: 10px;
+  }
+    #testimonial-{{section.id}} .headline p{
+    	font-size: 16px;
+    }
+    
+  	#testimonial-{{section.id}} .caption-content {
+     font-size: 14px;
+   }
+    #testimonial-{{section.id}} .caption-content.testimonial-text {
+    width: 95%;
+    margin: auto;
+    }
+  }
+</style>
+
+
+
+{% if section.blocks.size > 0 %}
+    
+  <div  id="testimonial-{{section.id}}"
+        class="product_page
+        
+      full-width--{{ section.settings.wide_display }}"
+      
+       data-flickity='{"pageDots": false, "adaptiveHeight": true }'
+        >
+    {% for block in section.blocks %}
+    
+        <div class="whole testimonial-block column cell gallery-cell {{ column_width }} slide-{{ forloop.index }} {% if block.settings.image == nil %}set-static use-mobile-color{% endif %}" {{ block.shopify_attributes }} data-block-id="{{block.id}}">                          
+           
+                <div class="caption-content testimonial-text {% if image != nil %}testimonial-text-mobile{% endif %}">
+                  
+                 {% assign image = block.settings.image %}
+            {% if image != nil %}          		
+              {% render 'image-element-testimonial',
+                      image: image,
+                      alt: image.alt,
+                      stretch_width: true,
+                      additional_classes: 'testimonial-image'
+              %}             
+            {% endif %}
+
+				<div class="testimonial_content">                  
+                    {% if block.settings.title != blank %}
+                      <div class="headline">
+                        {{ block.settings.title }}
+                      </div>
+
+                    {% endif %}
+                  
+                  
+                    <div class="subtitle">
+                      
+                      {% assign image1 = block.settings.image1 %}
+                  {% if image1 != nil %}
+                      {% render 'image-element',
+                      image: image1,
+                      alt: image1.alt,
+                      stretch_width: true,
+                      additional_classes: 'verified-image'
+              %} 
+                      {% endif %}
+                      
+                      <p class="customer-info">{{ block.settings.customer_info }}
+                        <span>&nbsp;Verified Buyer</span>
+                      </p>
+                      
+                    </div> 
+                  </div>
+              
+              </div>
+
+        </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
+{% schema %}
+
+{
+  "name": "Text and icons slider",
+  "class": "testimonial-section slider-column center custom",
+  "settings": [    
+    
+  { 
+	"type": "color",
+     "id": "background_color",
+      "label": "Section color",
+      "default": "#132240"
+  }
+  
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Customer",
+          "info": "75 x 75px recommended"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Heading"
+        },
+	 
+        {
+          "type": "text",
+          "id": "customer_info",
+          "label": "Customer"
+        },
+        {
+          "type": "header",
+          "content": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Icon",
+          "info": "75 x 75px recommended"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Columns",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}

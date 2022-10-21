@@ -1,0 +1,567 @@
+
+{% if section.settings.frontpage_grid_style == false %}
+  <div class="container">
+    <div class="sixteen columns">
+{% endif %}
+
+    <div class="image-with-text
+                featured_collections
+                clearfix across-{{section.settings.featured_links_per_row}} image-align--{{ section.settings.frontpage_image_position }}
+                full-width--{{ section.settings.frontpage_grid_style }}
+                " id="benefits">
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+     
+      
+      {% case block.type %}
+		{% when 'image' %}
+      
+          <section class="featured-link--section featured-link--image section-{{ forloop.index }}" {{ block.shopify_attributes }}>
+            <div class="featured-link--half featured-link--image featured-link--margin image-crop--{{ block.settings.image_crop }}">
+              <div class="featured-link--wrap">
+                
+                  {% if block.settings.image %}
+                    {% render 'image-element',
+                            image: block.settings.image,
+                            alt: block.settings.image.alt,
+                            stretch_width: true
+                    %}
+                  {% else %}
+                    {% capture i %}{% cycle "1", "2", "3", "4", "5", "6" %}{% endcapture %}
+                    {{ 'collection-' | append: i | placeholder_svg_tag: 'placeholder-svg placeholder-svg--promotions' }}
+                  {% endif %}
+                
+              </div>
+            </div>
+            <div class="featured-link--half block--{{ block.id }}">
+              <div class="info text-align--{{section.settings.frontpage_text_align}}">
+                   <div class="icon_title">
+                      <div class="icon">
+                              {% if block.settings.image1 != blank %}
+                              {% render 'image-element',
+                                      image: block.settings.image1,
+                                      alt: block.settings.image1.alt,
+                                      stretch_width: true
+                              %}
+                            {% else %}
+                              {% capture i %}{% cycle "1", "2", "3", "4", "5", "6" %}{% endcapture %}
+                              {{ 'collection-' | append: i | placeholder_svg_tag: 'placeholder-svg placeholder-svg--promotions' }}
+                            {% endif %}
+
+                        </div>
+                      <div class='title'>
+                        <p>{{ block.settings.info }}</p>
+                          <h4 {% if block.settings.link != blank %}{% endif %} class="little_title">
+                            {{ block.settings.title }}
+                          </h4>
+                       </div>
+                	</div>
+                {% if block.settings.title1 != blank %}
+                	<h2 class="h2">{{ block.settings.title1 }}</h2>
+                {% endif %}
+                {% if block.settings.text != blank %}
+                  <div class="description">{{ block.settings.text }}</div>
+                {% endif %}
+                {% if block.settings.button_label != blank %}
+                  <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} class="action_button">
+                    {{ block.settings.button_label }}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </section>
+      
+      	{% when 'video' %}
+		<section class="video_text featured-link--section">
+            {% assign id = object.id %}
+            {% assign object = block %}
+            {% assign wide_display = object.settings.wide_display %}
+            {% assign aspect_ratio = object.settings.aspect_ratio %}
+            {% assign autoplay = object.settings.autoplay %}
+            {% assign autoloop = object.settings.autoloop %}
+            {% assign darken_video = object.settings.video_dark_overlay %}
+            {% assign mute_video = object.settings.mute_video %}
+            {% assign show_controls = object.settings.show_controls %}
+            {% assign image = object.settings.image %}
+            {% assign display_text_over_video = object.settings.display_text_over_video %}
+            {% assign pretext = object.settings.pretext %}
+            {% assign title = object.settings.title %}
+            {% assign subtitle = object.settings.subtitle %}
+            {% assign text_position = object.settings.text_position %}
+            {% assign text_align = object.settings.text_align %}
+            {% assign mobile_text_below_image = object.settings.mobile_text_below_image %}
+            {% assign caption_background = object.settings.caption_background %}
+            {% assign caption_background_transparency = object.settings.caption_background_transparency %}
+            {% assign button1_label = object.settings.button1_label %}
+            {% assign button1_link = object.settings.button1_link %}
+            {% assign button1_highlight = object.settings.button1_highlight %}
+            {% assign button2_label = object.settings.button2_label %}
+            {% assign button2_link = object.settings.button2_link %}
+            {% assign button2_highlight = object.settings.button2_highlight %}
+            {% assign mobile_text_color = object.settings.mobile_text_color %}
+            {% assign iframe_video = object.settings.iframe_video %}
+            {% assign html5_video = object.settings.html5_video %}
+
+            {% comment %}Is the color set to transparent?{% endcomment %}
+            {% assign mobile_text_alpha = mobile_text_color | color_extract: 'alpha' %}
+
+            {% comment %}Section specific CSS{% endcomment %}
+            {% style %}
+              @media only screen and (max-width: 480px) {
+                #shopify-section-{{ id }} .pretext,
+                #shopify-section-{{ id }} .headline,
+                #shopify-section-{{ id }} .subtitle,
+                .block__{{ id }} .pretext,
+                .block__{{ id }} .headline,
+                .block__{{ id }} .subtitle {
+                  color: {% if mobile_text_alpha != 0 %}{{ mobile_text_color}}{% endif %};
+                }
+              }
+            {% endstyle %}
+			
+            <div class="video-section video one-half">
+
+                <div class="video-wrapper video-controls-enabled--{{ show_controls }}
+                    darken-video--{{ darken_video }}"
+                    id="video-{{ id }}"
+                    data-autoplay="{{ autoplay }}"
+                    data-autoloop="{{ autoloop }}"
+                    data-mute-video="{{ mute_video }}"
+                    data-video-src="{{ iframe_video.id }}"
+                    data-aspect-ratio="{{ aspect_ratio }}"
+                    data-poster-image-uploaded="{% if image != blank %}true{% else %}false{% endif%}">
+                  <div class="video__overlay"></div>
+                  {% comment %} Add div for placeholder / poster image {% endcomment %}
+                  {% if image != blank %}
+                    <div class="video-wrapper__image">
+                      {% render 'image-element',
+                              image: image,
+                              alt: image.alt,
+                              stretch_width: true
+                      %}
+                    </div>
+                  {% else %}
+                    {% unless html5_video != blank or iframe_video != blank %}
+                      <div class="video-wrapper__image">
+                        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg placeholder-svg--video' }}
+                      </div>
+                    {% endunless %}
+                  {% endif %}
+
+                  {% comment %} Checks there is an iframe video (YouTube or Vimeo) {% endcomment %}
+                  {% if iframe_video != blank %}
+                    {% if iframe_video.type == 'vimeo' %}
+                      <div class="plyr__video-embed" id="video-{{ id }}" data-video-element data-external-video>
+                        <iframe src="https://player.vimeo.com/video/{{ iframe_video.id }}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media" allowfullscreen allowtransparency allow="autoplay"></iframe>
+                      </div>
+                    {% elsif iframe_video.type == 'youtube' %}
+                      <div class="plyr__video-embed" id="video-{{ id }}" data-video-element1 data-external-video>
+                        <iframe src="https://www.youtube.com/embed/{{ iframe_video.id }}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1" allowfullscreen allowtransparency allow="autoplay"></iframe>
+                      </div>
+                    {% endif %}
+                    {% comment %} Checks there is an HTML5 video {% endcomment %}
+                  {% elsif html5_video != blank %}
+                    <video class="video-{{ id }}" data-video-element data-html5-video>
+                      <source src="{{ html5_video }}">
+                    </video>
+                  {% endif %}
+
+                  <div class="video__text-container display-text-over-video--{{ display_text_over_video }}
+                      text-below-image--{{ mobile_text_below_image }}" data-video-text-container>
+                    <div class="video__text">
+                      <div class="text-outer-wrapper caption js-caption position-{{ text_position }} caption--below-{{ mobile_text_below_image }}">
+                        <div class="video__text-wrapper
+                          caption-content align-{{ text_align }}
+                          caption-background-{{caption_background}}
+                          caption-transparency-{{ caption_background_transparency }}">
+                          {% if pretext != blank %}
+                            <div class="pretext" data-video-text>{{ pretext }}</div>
+                          {% endif %}
+                          {% if title != blank %}
+                            <h1 class="headline" data-video-text>{{ title | escape }}</h1>
+                          {% endif %}
+                          {% if subtitle != blank %}
+                            <div class="subtitle" data-video-text>{{ subtitle }}</div>
+                          {% endif %}
+                          {% if button1_label != blank %}
+                            <a {% if button1_link != blank %}href="{{ button1_link }}"{% else %}data-play-button{% endif %} class="action_button first_button highlight-{{ button1_highlight }}">
+                              {{ button1_label }}
+                            </a>
+                          {% endif %}
+                          {% if button2_label != blank and button2_link != blank %}
+                            <a href="{{ button2_link }}" class="action_button highlight-{{ button2_highlight }}" data-secondary-button>
+                              {{ button2_label }}
+                            </a>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+           <div class="video-section title one-half">
+              <div class="info text-align--{{section.settings.frontpage_text_align}}">
+                   
+                
+                	<h2 class="h2">{{ block.settings.title2 }}</h2>
+                
+               
+                  <div class="points">{{ block.settings.text2 }}</div>
+               
+              </div>
+            </div>
+	</section>
+      	 {% endcase %}
+      
+        {% endfor %}
+      {% endif %}
+    </div>
+{% if section.settings.frontpage_grid_style == false %}
+    </div>
+  </div>
+{% endif %}
+
+
+{% comment %} Is the color set to transparent? {% endcomment %}
+{% assign bg_alpha = block.settings.bg_color | color_extract: 'alpha' %}
+
+<style>
+
+  {% for block in section.blocks %}
+    .section-{{ forloop.index }} .block--{{ block.id }}, .section-{{ forloop.index }} .featured-link--image {
+      background-color: {{ block.settings.bg_color }};
+    }
+    .video_text {
+		background-color: {{ block.settings.bg_color2 }};
+    }
+
+    .block--{{ block.id }} .collection_title,
+    .block--{{ block.id }} p {
+      color: {{ block.settings.text_color }};
+    }
+
+    .block--{{ block.id }} a.button {
+      color: {{ block.settings.text_color }};
+      border-color: {{ block.settings.text_color }};
+    }
+
+    .block--{{ block.id }} a.button:hover {
+      color: {% if bg_alpha != 0 %}{{ block.settings.bg_color }}{% else %}{{ settings.shop_bg_color }}{% endif %};
+      border-color: {{ block.settings.text_color }};
+      background-color: {{ block.settings.text_color }};
+    }
+  {% endfor %}
+
+  {% if section.settings.frontpage_grid_style == false and section.settings.featured_links_per_row == '1' %}
+      #shopify-section-{{ section.id }} .featured-link--section {
+        margin-bottom: 3%;
+      }
+      @media only screen and (max-width: 480px) {
+        #shopify-section-{{ section.id }} .featured-link--section {
+          margin-bottom: 10%;
+        }
+      }
+
+      #shopify-section-{{ section.id }} .featured-link--half {
+        width: 45%;
+      }
+
+      #shopify-section-{{ section.id }} .featured-link--margin {
+        {% if section.settings.frontpage_image_position == 'right' %}
+          margin-left: 3%;
+        {% else %}
+          margin-left: 0;
+          margin-right: 3%;
+        {% endif %}
+      }
+
+      #shopify-section-{{ section.id }} .featured-link--section:nth-child(even) .featured-link--margin {
+        {% if section.settings.frontpage_image_position == 'right' %}
+          margin-left: 0;
+          margin-right: 3%;
+        {% else %}
+          margin-left: 3%;
+          margin-right: 0;
+        {% endif %}
+      }
+
+    {% elsif section.settings.frontpage_grid_style == false and section.settings.featured_links_per_row == '2' %}
+
+        @media only screen and (max-width: 480px) {
+          #shopify-section-{{ section.id }} .featured-link--section {
+            margin-bottom: 10%;
+          }
+        }
+
+        #shopify-section-{{ section.id }} .featured-link--margin {
+          margin-right: 0;
+          margin-left: 0;
+        }
+
+        #shopify-section-{{ section.id }} .featured-link--section:nth-child(even) .featured-link--margin {
+          margin-left: 0;
+          margin-right: 0;
+        }
+
+      {% endif %}
+</style>
+
+{% schema %}
+{
+  "name": "Benefits",
+  "class": "image-with-text-section product-benefits",
+  "max_blocks": 16,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "frontpage_grid_style",
+      "label": "Wide display"
+    },
+	{ "type": "color",
+     "id": "background_color",
+      "label": "Section color",
+      "default": "#ffffff"
+  },
+    {
+      "type": "select",
+      "id": "featured_links_per_row",
+      "label": "Images per row",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "frontpage_text_align",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "frontpage_image_position",
+      "label": "First media block position",
+      "info": "Subsequent images will appear staggered",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image with text",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "1024 x 1024px recommended"
+        },
+        {
+          "type": "select",
+          "id": "image_crop",
+          "label": "Image cropping",
+          "default": "none",
+          "info": "Only applied when text area is taller than image.",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Icon",
+          "info": "60 x 60px recommended"
+        },
+		{
+          "type": "text",
+          "id": "info",
+		  "label": "Info",
+          "default": "Some info"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Your headline"
+        },
+        {
+          "type": "text",
+          "id": "title1",
+          "label": "Heading",
+          "default": "Your headline"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Promotion description appears here.</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "View all"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Button link"
+        },
+
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text"
+        }
+      ]
+	},
+    {
+          "type": "video",
+          "name": "Video with text",
+          "settings": [
+				{
+          "type": "checkbox",
+          "id": "autoplay",
+          "label": "Autoplay video",
+          "default": false,
+          "info": "Limited browser support for autoplaying video. [Learn more](https:\/\/help.outofthesandbox.com\/hc\/en-us\/articles\/360000661568-Why-won-t-my-video-autoplay-)"
+        },
+        {
+          "type": "checkbox",
+          "id": "autoloop",
+          "label": "Autoloop video",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "mute_video",
+          "label": "Mute video",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_controls",
+          "label": "Show video controls",
+          "default": true
+        },
+        {
+          "type": "video_url",
+          "id": "iframe_video",
+          "label": "Video link",
+          "accept": ["youtube", "vimeo"],
+          "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+        },
+        {
+          "type": "text",
+          "id": "html5_video",
+          "label": "HTML5 MP4/OGV File URL"
+        },
+		{
+          "type": "color",
+          "id": "bg_color2",
+          "label": "Background"
+        },
+		
+		{
+          "type": "text",
+          "id": "title2",
+          "label": "Heading",
+          "default": "Your headline"
+        },
+        {
+          "type": "richtext",
+          "id": "text2",
+          "label": "Text",
+          "default": "<p>Promotion description appears here.</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_label2",
+          "label": "Button label",
+          "default": "View all"
+        },
+        {
+          "type": "url",
+          "id": "link2",
+          "label": "Button link"
+        }
+        ]
+      }
+      ],
+  "presets": [{
+      "name": "Image with text - benefits",
+      "category": "Image",
+      "settings": {
+        "featured_links_per_row": "1",
+        "frontpage_text_align": "left"
+      },
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

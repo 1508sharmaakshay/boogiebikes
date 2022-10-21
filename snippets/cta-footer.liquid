@@ -1,0 +1,93 @@
+  {% assign button_link1 = section.settings.button_link1 %}
+  {% assign button_name1 = section.settings.button_name1 %}
+  {% assign button_link2 = section.settings.button_link1 %}
+  {% assign button_name2 = section.settings.button_name2 %}
+
+<div class="cta nav-footer">
+ 	
+    {% render 'product__structured-data' %}
+       <div class="nine large-down--six columns">
+          <div class="product_title">
+              <h1 class="product_name">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h1>
+          </div>
+
+          {% comment %}Start automatically added Judge.me widget{% endcomment %}
+         <div class="cta-reviews"><p>REVIEWS</p>{% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', concierge_install: true, product: product %}</div>
+          {% comment %}End automatically added Judge.me widget{% endcomment %}
+       </div>
+       <div class="three large-down--four columns vertical-line">
+      <div class="product-name--{{ product.handle }}">
+      <div class="section product_section clearfix js-product_section " data-rv-handle="boogie-bike-cruiser">
+  		
+        
+         {% assign product_tags = product.tags | join: ' ' %}
+
+              {% if collection_handles contains 'coming-soon' %}
+                <p class="modal_price">{{ 'collections.general.coming_soon_html' | t }}</p>
+              {% else %}
+                {% assign variant = product.selected_or_first_available_variant %}
+                <div class="modal_price">
+                  {% unless product.available == false and settings.display_price == false %}
+                    <div class="price__container price__container--display-price-{{ settings.display_price }} {% if settings.display_price %}has-margin-right{% endif %}">
+                      <div>
+                       <span class="was_price">
+                        {% if variant.price < variant.compare_at_price %}
+                          <span class="money">{% render 'price-element', price: variant.compare_at_price %}</span>
+                        {% endif %}
+                      </span>
+                      
+                      <span content="{{ variant.price | money_without_currency }}" class="{% if variant.compare_at_price > variant.price %}sale{% endif %}">
+                        <span class="current_price">
+                          {% if variant.price > 0 %}
+                            <span class="money">{% render 'price-element', price: variant.price %}</span>
+                          {% else %}
+                            {{ settings.free_price_text }}
+                          {% endif %}
+                        </span>
+                      </span>
+                      </div>
+                      {% if section.settings.display_savings %}
+                        <span class="sale savings">
+                          {% if variant.price < variant.compare_at_price %}
+                        <span class="money">{% assign compare_at = variant.compare_at_price | minus: variant.price %}{% render 'price-element', price: compare_at %}</span> OFF
+                          {% endif %}
+                        </span>
+                      {% endif %}
+                    </div>
+                  {% endunless %}
+                  <div class="sold-out__container">
+                    <span class="sold_out">{% if variant.available == false %}{{ settings.sold_out_text }}{% endif %}</span>
+                  </div>
+                </div>
+              {% endif %}
+    
+        
+        
+       </div>
+     </div>
+       </div>
+	   <div class="four large-down--six small--one-whole columns"> 
+           <div class="buttons">
+                <div class="call button">
+                  <a href="{{ button_link1 }}">{{ button_name1 }}</a>
+              </div>
+                <div class="buy-now button">
+                  <a href="{{ button_link2 }}">{{ button_name2 }}</a>
+              </div>
+            </div>
+       </div>
+  
+ </div>
+
+    <div class="cta mobile-nav-footer">
+       <div class="buttons">
+                <div class="call button">
+                  <a href="{{ button_link1 }}">{{ button_name1 }}</a>
+              </div>
+                <div class="buy-now button">
+                  <a href="{{ button_link2 }}">{{ button_name2 }}</a>
+              </div>
+            </div>
+    </div>

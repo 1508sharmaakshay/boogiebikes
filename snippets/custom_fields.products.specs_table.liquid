@@ -1,0 +1,13 @@
+{% if product.metafields.custom_fields["specs_table"] != blank %}
+  <div class="custom-field custom-field__specs-table custom-field__type--text-list">
+    <h3 class="custom-field--title">specs table</h3>
+    <div class="custom-field--value">  
+      {% assign values = product.metafields.custom_fields["specs_table"] | split: "|" %}
+      <ul>
+      {% for value in values %}
+        <li>{{ value }}</li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,30 @@
+        <div class="text-under-button">        	
+          {{section.settings.image}}
+          {{section.settings.disclaimer}}
+        </div>
+
+{% schema %}
+  {
+    "name": "Disclaimer",
+	"class": "disclaimer",
+    "settings": [
+	{
+      "type": "text",
+  	  "id": "sometext",
+	  "label": "Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "80 x 80px recommended"
+    }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

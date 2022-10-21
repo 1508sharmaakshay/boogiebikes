@@ -1,0 +1,432 @@
+{% comment %}
+** Image with text (half and half view) - homepage partial **
+- Draggable section
+- Uses blocks
+{% endcomment %}
+
+
+{% if section.settings.frontpage_grid_style == false %}
+  <div class="container">
+    <div class="sixteen columns">
+{% endif %}
+
+    <div class="image-with-text
+                featured_collections
+                clearfix across-{{section.settings.featured_links_per_row}} image-align--{{ section.settings.frontpage_image_position }}
+                full-width--{{ section.settings.frontpage_grid_style }}
+                ">
+    
+          <section class="featured-link--section featured-link--image section-{{ forloop.index }}" >
+            <div class="featured-link--half featured-link--image block--{{ block.id }} featured-link--margin image-crop--{{ section.settings.image_crop }}">
+              <div class="featured-link--wrap">
+                <a {% if section.settings.link != blank %}href="{{ section.settings.link }}"{% endif %} title="{{ section.settings.title }}">
+                  {% if section.settings.image %}
+                    {% render 'image-element',
+                            image: section.settings.image,
+                            alt: section.settings.image.alt,
+                            stretch_width: true
+                    %}
+                  {% else %}
+                    {% capture i %}{% cycle "1", "2", "3", "4", "5", "6" %}{% endcapture %}
+                    {{ 'collection-' | append: i | placeholder_svg_tag: 'placeholder-svg placeholder-svg--promotions' }}
+                  {% endif %}
+                </a>
+              </div>
+            </div>
+            
+              
+            <div class="featured-link--half block--{{ block.id }}">
+              <div class="info">
+                <h2 class="collection_title">
+                  {{ section.settings.title_section }}
+                </h2>
+                {% if section.blocks.size > 0 %}
+        		{% for block in section.blocks %}
+                
+                {% if block.settings.title_1 != blank %}
+                              <div class="tab_row">
+                                <div class="row_order"><p>{{ block.settings.order_1 | escape }}</p></div>
+                                <div class="row_title"><p>{{ block.settings.title_1 | escape }}</p></div>          
+                                 <div class="row_description">{{ block.settings.description_1 }}</div>       
+                              </div>
+                    {% endif %}
+                  
+                  {% if block.settings.title_2 != blank %}
+                              <div class="tab_row">
+                                <div class="row_order"><p>{{ block.settings.order_2 | escape }}</p></div>
+                                <div class="row_title"><p>{{ block.settings.title_2 | escape }}</p></div>          
+                                 <div class="row_description">{{ block.settings.description_2 }}</div>       
+                              </div>
+                    {% endif %}
+                  
+                  {% if block.settings.title_3 != blank %}
+                              <div class="tab_row">
+                                <div class="row_order"><p>{{ block.settings.order_3 | escape }}</p></div>
+                                <div class="row_title"><p>{{ block.settings.title_3 | escape }}</p></div>          
+                                 <div class="row_description">{{ block.settings.description_3 }}</div>       
+                              </div>
+                    {% endif %}
+                  
+                  {% if block.settings.title_4 != blank %}
+                              <div class="tab_row">
+                                <div class="row_order"><p>{{ block.settings.order_4 | escape }}</p></div>
+                                <div class="row_title"><p>{{ block.settings.title_4 | escape }}</p></div>          
+                                 <div class="row_description">{{ block.settings.description_4 }}</div>       
+                              </div>
+                    {% endif %}
+
+                  {% if block.settings.title_5 != blank %}
+                              <div class="tab_row">
+                                <div class="row_order"><p>{{ block.settings.order_5 | escape }}</p></div>
+                                <div class="row_title"><p>{{ block.settings.title_5 | escape }}</p></div>          
+                                 <div class="row_description">{{ block.settings.description_5 }}</div>       
+                              </div>
+                    {% endif %}
+                  
+                  {% if block.settings.title_6 != blank %}
+                              <div class="tab_row">
+                                <div class="row_order"><p>{{ block.settings.order_6 | escape }}</p></div>
+                                <div class="row_title"><p>{{ block.settings.title_6 | escape }}</p></div>          
+                                 <div class="row_description">{{ block.settings.description_6 }}</div>       
+                              </div>
+                    {% endif %}
+                    
+                    	{% if block.settings.title_7 != blank %}
+                             <div class="tab_row">
+                               <div class="row_order"><p>{{ block.settings.order_7 | escape }}</p></div>
+                               <div class="row_title"><p>{{ block.settings.title_7 | escape }}</p></div>
+                                <div class="row_description">{{ block.settings.description_7 }}</div>
+							</div>
+                  {% endif %}
+                  
+                   {% if block.settings.title_8 != blank %}
+                          <div class="tab_row">
+                            	<div class="row_order"><p>{{ block.settings.order_8 | escape }}</p></div>
+                                 <div class="row_title"><p>{{ block.settings.title_8 | escape }}</p></div>
+                                 <div class="row_description">{{ block.settings.description_8 }}</div>
+						 </div>
+                   {% endif %}
+                       {% if block.settings.title_9 != blank %}
+                          <div class="tab_row">
+                            	<div class="row_order"><p>{{ block.settings.order_9 | escape }}</p></div>
+                                 <div class="row_title"><p>{{ block.settings.title_9 | escape }}</p></div>
+                                 <div class="row_description">{{ block.settings.description_9 }}</div>
+						 </div>
+                   {% endif %}
+                 {% endfor %}
+     		 {% endif %}
+                
+              </div>
+            </div>
+            
+          </section>
+       
+    </div>
+      
+{% if section.settings.frontpage_grid_style == false %}
+    </div>
+  </div>
+{% endif %}
+
+
+{% comment %} Is the color set to transparent? {% endcomment %}
+
+
+<style>
+
+  {% for block in section.blocks %}
+    section.section-{{ forloop.index }} .block--{{ block.id }}{
+      background-color: {{ block.settings.back_color }};
+    }
+  
+    .block--{{ block.id }} .collection_title,
+    .block--{{ block.id }} p {
+      color: {{ block.settings.text_color }};
+    }
+
+    .block--{{ block.id }} a.button {
+      color: {{ block.settings.text_color }};
+      border-color: {{ block.settings.text_color }};
+    }
+
+    .block--{{ block.id }} a.button:hover {
+      color: {% if bg_alpha != 0 %}{{ block.settings.bg_color }}{% else %}{{ settings.shop_bg_color }}{% endif %};
+      border-color: {{ block.settings.text_color }};
+      background-color: {{ block.settings.text_color }};
+    }
+  {% endfor %}
+
+  {% if section.settings.frontpage_grid_style == false and section.settings.featured_links_per_row == '1' %}
+      #shopify-section-{{ section.id }} .featured-link--section {
+        margin-bottom: 3%;
+      }
+      @media only screen and (max-width: 480px) {
+        #shopify-section-{{ section.id }} .featured-link--section {
+          margin-bottom: 10%;
+        }
+      }
+
+      #shopify-section-{{ section.id }} .featured-link--half {
+        width: 45%;
+      }
+
+      #shopify-section-{{ section.id }} .featured-link--margin {
+        {% if section.settings.frontpage_image_position == 'right' %}
+          margin-left: 3%;
+        {% else %}
+          margin-left: 0;
+          margin-right: 3%;
+        {% endif %}
+      }
+
+      #shopify-section-{{ section.id }} .featured-link--section:nth-child(even) .featured-link--margin {
+        {% if section.settings.frontpage_image_position == 'right' %}
+          margin-left: 0;
+          margin-right: 3%;
+        {% else %}
+          margin-left: 3%;
+          margin-right: 0;
+        {% endif %}
+      }
+
+    {% elsif section.settings.frontpage_grid_style == false and section.settings.featured_links_per_row == '2' %}
+
+        @media only screen and (max-width: 480px) {
+          #shopify-section-{{ section.id }} .featured-link--section {
+            margin-bottom: 10%;
+          }
+        }
+
+        #shopify-section-{{ section.id }} .featured-link--margin {
+          margin-right: 0;
+          margin-left: 0;
+        }
+
+        #shopify-section-{{ section.id }} .featured-link--section:nth-child(even) .featured-link--margin {
+          margin-left: 0;
+          margin-right: 0;
+        }
+
+      {% endif %}
+</style>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "class": "image-with-text-section image-table",
+  "max_blocks": 2,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "frontpage_grid_style",
+      "label": "Wide display"
+    },
+    
+    {
+      "type": "select",
+      "id": "frontpage_image_position",
+      "label": "First image position",
+      "info": "Subsequent images will appear staggered",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+ 	{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "1024 x 1024px recommended"
+        },
+        {
+          "type": "select",
+          "id": "image_crop",
+          "label": "Image cropping",
+          "default": "none",
+          "info": "Only applied when text area is taller than image.",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ]
+        },
+		{
+          "type": "text",
+          "id": "title_section",
+          "label": "Heading",
+          "default": "Your headline"
+        }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Text rows",
+      "settings": [
+		{
+			"type": "text",
+			"id": "order_1",
+			"label": "Order",
+			"default": "A."
+		},
+		{
+			"type": "text",
+			"id": "title_1",
+			"label": "Middle column",
+			"default": "Part"
+		},
+		{
+			"type": "richtext",
+			"id": "description_1",
+			"label": "Right column",
+			"default": "<p>Dimensions</p>"
+		},
+		{
+			"type": "text",
+			"id": "order_2",
+			"label": "Order",
+			"default": "B."
+		},
+		{
+			"type": "text",
+			"id": "title_2",
+			"label": "Middle column",
+			"default": "Part"
+		},
+		{
+			"type": "richtext",
+			"id": "description_2",
+			"label": "Right column",
+			"default": "<p>Dimensions</p>"
+		},
+		{
+			"type": "text",
+			"id": "order_3",
+			"label": "Order",
+			"default": "B."
+		},
+		{
+			"type": "text",
+			"id": "title_3",
+			"label": "Middle column",
+			"default": "Part"
+		},
+		{
+			"type": "richtext",
+			"id": "description_3",
+			"label": "Right column",
+			"default": "<p>Dimensions</p>"
+		},
+		{
+			"type": "text",
+			"id": "order_4",
+			"label": "Order",
+			"default": "C."
+		},
+		{
+			"type": "text",
+			"id": "title_4",
+			"label": "Middle column",
+			"default": "Part"
+		},
+		{
+			"type": "richtext",
+			"id": "description_4",
+			"label": "Right column",
+			"default": "<p>Dimensions</p>"
+		},
+		{
+			"type": "text",
+			"id": "order_5",
+			"label": "Order",
+			"default": "D."
+		},
+		{
+			"type": "text",
+			"id": "title_5",
+			"label": "Middle column",
+			"default": "Part"
+		},
+		{
+			"type": "richtext",
+			"id": "description_5",
+			"label": "Right column",
+			"default": "<p>Dimensions</p>"
+		},
+		{
+			"type": "text",
+			"id": "order_6",
+			"label": "Order",
+			"default": "E."
+		},
+		{
+			"type": "text",
+			"id": "title_6",
+			"label": "Middle column",
+			"default": "Part"
+		},
+		{
+			"type": "richtext",
+			"id": "description_6",
+			"label": "Right column",
+			"default": "<p>Dimensions</p>"
+		},
+		{
+			"type": "text",
+			"id": "order_7",
+			"label": "Order",
+			"default": "F."
+		},
+		{
+			"type": "text",
+			"id": "title_7",
+			"label": "Middle column",
+			"default": "Part"
+		},
+		{
+			"type": "richtext",
+			"id": "description_7",
+			"label": "Right column",
+			"default": "<p>Dimensions</p>"
+		},
+		{
+			"type": "text",
+			"id": "order_8",
+			"label": "Order",
+			"default": "F."
+		},
+		{
+			"type": "text",
+			"id": "title_8",
+			"label": "Middle column",
+			"default": "Part"
+		},
+		{
+			"type": "richtext",
+			"id": "description_8",
+			"label": "Right column",
+			"default": "<p>Dimensions</p>"
+		}
+      ]
+    }
+  ]
+}
+{% endschema %}
